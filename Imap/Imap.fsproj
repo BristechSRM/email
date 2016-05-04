@@ -55,6 +55,10 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Entities.fs" />
+    <Compile Include="Mapper.fs" />
+    <Compile Include="Repository.fs" />
+    <Compile Include="ZohoClient.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
