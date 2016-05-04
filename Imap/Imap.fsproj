@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>2210da00-a0d3-4035-b7e6-6787af279a5a</ProjectGuid>
+    <ProjectGuid>{2210DA00-A0D3-4035-B7E6-6787AF279A5A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Imap</RootNamespace>
     <AssemblyName>Imap</AssemblyName>
@@ -61,21 +60,28 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK.Core">
+      <HintPath>..\packages\AWSSDK.Core.3.1.4.3\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.DynamoDBv2">
+      <HintPath>..\packages\AWSSDK.DynamoDBv2.3.1.3.0\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle">
       <HintPath>..\packages\MimeKit.1.2.22\lib\net45\BouncyCastle.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MailKit">
       <HintPath>..\packages\MailKit.1.2.21\lib\net45\MailKit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MimeKit">
       <HintPath>..\packages\MimeKit.1.2.22\lib\net45\MimeKit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
