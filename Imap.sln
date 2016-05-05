@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
+# Visual Studio 2012
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Imap", "Imap\Imap.fsproj", "{2210DA00-A0D3-4035-B7E6-6787AF279A5A}"
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Imap", "Imap\Imap.fsproj", "{2210DA00-A0D3-4035-B7E6-6787AF279A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
