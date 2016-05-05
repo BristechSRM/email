@@ -8,7 +8,6 @@ type Message =
     { Id : string
       Subject : string
       TextBody : string
-      HtmlBody : string
       FromEmail : string
       ToEmail : string }
 

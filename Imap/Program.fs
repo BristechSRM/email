@@ -1,12 +1,25 @@
-﻿[<EntryPoint>]
+﻿open System
+open System.Threading
+
+[<EntryPoint>]
 let main _ = 
-    //NOTE Hitting local dynamodb. Must be exposed at "http://localhost:7777"
-    //Repository.setup()
 
-    ZohoClient.getFirstMessage()
-    |> Mapper.mimeMessageToEntity
-    |> Repository.addMessageIfNew
-    |> Option.iter (printfn "Id of first stored message: %s")
+    let mutable polling = true
+    let intervalSeconds = 60
+    let interval = intervalSeconds * 1000
+    let client = ZohoClient.getConnectedClient()
+    let inbox = ZohoClient.openInbox client
 
-    ZohoClient.disconnect()
+    while polling do 
+        printfn "Starting Polling at %A" DateTime.UtcNow
+        ZohoClient.getAllMessages inbox
+        |> Seq.map Mapper.mimeMessageToEntity
+        |> Seq.iter (InMemoryRepository.addIfNew >> ignore)
+        printfn "Polling completed. Pausing at %A. \n Polling will start again in %i seconds" DateTime.UtcNow intervalSeconds
+        Thread.Sleep(interval)
+
+    client.Disconnect(true)
+    let waitIndefinitelyWithToken = 
+        let cancelSource = new CancellationTokenSource()
+        cancelSource.Token.WaitHandle.WaitOne() |> ignore
     0
