@@ -1,8 +1,5 @@
 ﻿module Entities
 
-open Amazon.DynamoDBv2.DataModel
-
-[<DynamoDBTable("Messages")>]
 [<CLIMutable>]
 type Message = 
     { Id : string

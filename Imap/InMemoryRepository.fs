@@ -1,6 +1,5 @@
 ﻿module InMemoryRepository
 open Entities
-open System
 
 let mutable private store = System.Collections.Generic.Dictionary<string,Message>()
 
