@@ -55,12 +55,16 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="Mapper.fs" />
     <Compile Include="InMemoryRepository.fs" />
     <Compile Include="ZohoClient.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
+    <Content Include="Creds.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +83,7 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />

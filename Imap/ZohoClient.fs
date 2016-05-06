@@ -19,3 +19,5 @@ let openInbox (client : ImapClient) =
 let getAllMessages (folder : IMailFolder) = 
     folder.Search(SearchQuery.All)
     |> Seq.map (fun i-> folder.GetMessage(i))
+
+let disconnect (client : ImapClient) = client.Disconnect(true)

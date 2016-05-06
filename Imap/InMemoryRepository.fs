@@ -1,7 +1,7 @@
 ﻿module InMemoryRepository
 open Entities
 
-let mutable private store = System.Collections.Generic.Dictionary<string,Message>()
+let private store = System.Collections.Generic.Dictionary<string, Message>()
 
 let addIfNew (message : Message) =
     if store.ContainsKey(message.Id) then
@@ -9,5 +9,5 @@ let addIfNew (message : Message) =
         message.Id
     else 
         printfn "Storing message with id %s" message.Id
-        store.Add(message.Id,message)
+        store.Add(message.Id, message)
         message.Id
