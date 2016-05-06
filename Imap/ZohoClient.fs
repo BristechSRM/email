@@ -1,21 +1,23 @@
 ﻿module ZohoClient
 
 open MailKit
+open MailKit.Search
 open MailKit.Net.Imap
 
-let client = new ImapClient()
-client.Connect("imappro.zoho.com", 993, true)
-client.AuthenticationMechanisms.Remove("XOAUTH2") |> ignore
-client.Authenticate("chris@bris.tech", "application specific password Here")
+let getConnectedClient() = 
+    let client = new ImapClient()
+    client.Connect("imappro.zoho.com", 993, true)
+    client.AuthenticationMechanisms.Remove("XOAUTH2") |> ignore
+    client.Authenticate("srm_test@bris.tech", "hnnpbzh93n6m")
+    client
 
-let inbox = client.Inbox
-inbox.Open(FolderAccess.ReadOnly) |> ignore
+let openInbox (client : ImapClient) = 
+    let inbox = client.Inbox
+    inbox.Open(FolderAccess.ReadOnly) |> ignore
+    inbox
 
-printfn "Total messages: %d" inbox.Count
-printfn "Recent messages: %d" inbox.Recent
+let getAllMessages (folder : IMailFolder) = 
+    folder.Search(SearchQuery.All)
+    |> Seq.map (fun i-> folder.GetMessage(i))
 
-let messages = List.init inbox.Count (fun i -> inbox.GetMessage(i))
-
-let getFirstMessage() = List.head messages
-
-let disconnect () = client.Disconnect(true)
+let disconnect (client : ImapClient) = client.Disconnect(true)

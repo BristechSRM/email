@@ -55,21 +55,19 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="Mapper.fs" />
-    <Compile Include="Repository.fs" />
+    <Compile Include="InMemoryRepository.fs" />
     <Compile Include="ZohoClient.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
+    <Content Include="Creds.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>..\packages\AWSSDK.Core.3.1.4.3\lib\net45\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.DynamoDBv2">
-      <HintPath>..\packages\AWSSDK.DynamoDBv2.3.1.3.0\lib\net45\AWSSDK.DynamoDBv2.dll</HintPath>
-    </Reference>
     <Reference Include="BouncyCastle">
       <HintPath>..\packages\MimeKit.1.2.22\lib\net45\BouncyCastle.dll</HintPath>
     </Reference>
@@ -84,10 +82,8 @@
       <HintPath>..\packages\MimeKit.1.2.22\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
