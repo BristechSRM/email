@@ -55,6 +55,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Logging.fs" />
     <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="Mapper.fs" />
@@ -82,6 +83,14 @@
       <HintPath>..\packages\MimeKit.1.2.22\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
