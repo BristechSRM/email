@@ -1,5 +1,6 @@
 ﻿module Credentials
 
+open System
 open System.Configuration
 
 type Credentials = 
@@ -21,6 +22,6 @@ let getCredentials() =
         { Email = ConfigurationManager.AppSettings.Item("EmailAccount")
           Password = ConfigurationManager.AppSettings.Item("Password") }
 
-    if creds.Email = "UNSET" || creds.Password = "UNSET" then 
+    if String.IsNullOrWhiteSpace creds.Email  || String.IsNullOrWhiteSpace creds.Password then 
         failwith missingCredentialsMessage
     else creds
