@@ -3,12 +3,14 @@
 open MailKit
 open MailKit.Search
 open MailKit.Net.Imap
+open Credentials
 
 let getConnectedClient() = 
+    let creds = Credentials.getCredentials()
     let client = new ImapClient()
     client.Connect("imappro.zoho.com", 993, true)
     client.AuthenticationMechanisms.Remove("XOAUTH2") |> ignore
-    client.Authenticate("srm_test@bris.tech", "hnnpbzh93n6m")
+    client.Authenticate(creds.Email, creds.Password)
     client
 
 let openInbox (client : ImapClient) = 
