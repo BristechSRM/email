@@ -9,7 +9,7 @@ open Entities
 let url = 
     let configUrl = ConfigurationManager.AppSettings.Item("SessionsUrl")
     if String.IsNullOrWhiteSpace configUrl then
-        failwith "Url for comms service is missing from configuration. Add url to procede."
+        failwith "Url for comms service is missing from configuration. Add url to proceed."
     else 
         configUrl
 

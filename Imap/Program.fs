@@ -14,9 +14,8 @@ let main _ =
 
     while true do 
         printfn "Starting Polling at %A" DateTime.UtcNow
-        let knownExternalIds = [||]
-        ZohoClient.getNewMessages inbox knownExternalIds 
-        |> Seq.map (Mapper.tryMapToEntity handles)
+        ZohoClient.getNewMessages inbox 
+        |> Seq.map (CommsMapper.tryMapToEntity handles)
         |> Seq.choose id //TODO Currently ignoring emails which don't have a profile match. Can we do better?
         |> Seq.iter (InMemoryRepository.addIfNew >> ignore)
         printfn "Polling completed. Pausing at %A. \n Polling will start again in %i seconds" DateTime.UtcNow intervalSeconds

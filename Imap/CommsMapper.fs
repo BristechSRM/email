@@ -1,4 +1,4 @@
-﻿module Mapper
+﻿module CommsMapper
 
 open System
 open Entities
@@ -21,7 +21,7 @@ let tryMapToEntity (handles : HandleEntity [])  (message : MimeMessage ) =
 
     match getProfileId handles senderHandle with
     | None -> None
-    | Some senderId-> 
+    | Some senderId -> 
         match getProfileId handles receiverHandle with 
         | None -> None
         | Some receiverId ->      
