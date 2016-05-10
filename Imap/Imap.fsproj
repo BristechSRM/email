@@ -60,6 +60,8 @@
     <Compile Include="Entities.fs" />
     <Compile Include="Mapper.fs" />
     <Compile Include="InMemoryRepository.fs" />
+    <Compile Include="CommsClient.fs" />
+    <Compile Include="HandlesClient.fs" />
     <Compile Include="ZohoClient.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
