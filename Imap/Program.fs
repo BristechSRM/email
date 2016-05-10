@@ -1,6 +1,7 @@
 ﻿open System
 open System.Threading
 open Logging
+open Serilog
 
 [<EntryPoint>]
 let main _ = 
@@ -10,14 +11,28 @@ let main _ =
     let client = ZohoClient.getConnectedClient()
     let inbox = ZohoClient.openInbox client
 
-    let handles = HandlesClient.getAllHandles()
+    let creds = Credentials.credentials
+
+    //TODO question when we fetch different information
 
     while true do 
-        printfn "Starting Polling at %A" DateTime.UtcNow
-        ZohoClient.getNewMessages inbox 
-        |> Seq.map (CommsMapper.tryMapToEntity handles)
-        |> Seq.choose id //TODO Currently ignoring emails which don't have a profile match. Can we do better?
-        |> Seq.iter (InMemoryRepository.addIfNew >> ignore)
-        printfn "Polling completed. Pausing at %A. \n Polling will start again in %i seconds" DateTime.UtcNow intervalSeconds
+        Log.Information("Starting Polling at {now}", DateTime.UtcNow)
+
+        let handles = HandlesClient.getAllHandles()
+        let knownExternalIds = CommsClient.getKnownExternalIds creds.Email
+
+        let newMessages = 
+            knownExternalIds
+            |> ZohoClient.getNewMessages inbox 
+
+        let prepedMessages = 
+            newMessages
+            |> Seq.map (Mapper.tryMapToEntity handles)
+            |> Seq.choose id 
+            //TODO Currently ignoring emails which don't have a profile match. Can we do better?
+        
+        CommsClient.postAllNewCorrespondence prepedMessages
+
+        Log.Information("Polling completed. Pausing at {now}. \n Polling will start again in {interval} seconds", DateTime.UtcNow, intervalSeconds)
         Thread.Sleep(interval)
     0
