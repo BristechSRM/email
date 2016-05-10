@@ -6,16 +6,17 @@ open Serilog
 [<EntryPoint>]
 let main _ = 
     setupLogging()
-    let intervalSeconds = 60
-    let interval = intervalSeconds * 1000
     let client = ZohoClient.getConnectedClient()
     let inbox = ZohoClient.openInbox client
 
     let creds = Credentials.credentials
-
+    let interval = new TimeSpan(0,0,60)
+    let createCancelSource() = new CancellationTokenSource(interval)
+    let mutable cancelSource = createCancelSource() 
+    
     //TODO question when we fetch different information
 
-    while true do 
+    while true do  
         Log.Information("Starting Polling at {now}", DateTime.UtcNow)
 
         let handles = HandlesClient.getAllHandles()
@@ -33,6 +34,8 @@ let main _ =
         
         CommsClient.postAllNewCorrespondence prepedMessages
 
-        Log.Information("Polling completed. Pausing at {now}. \n Polling will start again in {interval} seconds", DateTime.UtcNow, intervalSeconds)
-        Thread.Sleep(interval)
+        Log.Information("Polling completed. Pausing at {now}. \n Polling will start again in {interval} seconds", DateTime.UtcNow, interval)
+        
+        client.Idle(cancelSource.Token)
+        cancelSource <- createCancelSource() 
     0
