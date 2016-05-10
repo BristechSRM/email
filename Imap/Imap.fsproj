@@ -58,7 +58,7 @@
     <Compile Include="Logging.fs" />
     <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
-    <Compile Include="Mapper.fs" />
+    <Compile Include="CommsMapper.fs" />
     <Compile Include="InMemoryRepository.fs" />
     <Compile Include="CommsClient.fs" />
     <Compile Include="HandlesClient.fs" />
