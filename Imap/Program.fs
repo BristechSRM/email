@@ -10,8 +10,6 @@ let main _ =
     let client = ZohoClient.getConnectedClient()
     let inbox = ZohoClient.openInbox client
 
-    let creds = Credentials.credentials
-
     let handles = HandlesClient.getAllHandles()
 
     while true do 
