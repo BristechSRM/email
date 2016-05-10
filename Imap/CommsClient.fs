@@ -36,8 +36,10 @@ let post (client: HttpClient) (url) inputData =
 let postAllNewCorrespondence (items : CorrespondenceItemEntity seq) = 
     use client = new HttpClient()
     let correspondenceUrl = sprintf "%s/Correspondence" url
-
-    Log.Information("Posting new Corresspondence to {url}",correspondenceUrl)
-    for item in items do         
-        let result = post client correspondenceUrl item
-        Log.Information("Posted item with ExternalId {id} with result {result}", item.ExternalId,result)
+    if Seq.isEmpty items then
+        Log.Information("No New Correspondence to insert")
+    else 
+        Log.Information("New Correspondence found. Posting to: {url}",correspondenceUrl)
+        for item in items do         
+            let result = post client correspondenceUrl item
+            Log.Information("Posted item with ExternalId {id} with result {result}", item.ExternalId,result)
