@@ -25,3 +25,5 @@ let getCredentials() =
     if String.IsNullOrWhiteSpace creds.Email  || String.IsNullOrWhiteSpace creds.Password then 
         failwith missingCredentialsMessage
     else creds
+
+let credentials = getCredentials()
