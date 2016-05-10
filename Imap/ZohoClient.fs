@@ -31,8 +31,6 @@ let getNewMessages (folder : IMailFolder) (knownIds : string[]) =
     let summaries = folder.Fetch(0,-1,MessageSummaryItems.Envelope |||  MessageSummaryItems.UniqueId)
     summaries
     |> Seq.filter(fun x -> not <| Array.contains x.Envelope.MessageId knownIds)
-    |> Seq.map(fun x -> folder.GetMessage(x.UniqueId))
-    
-    
+    |> Seq.map(fun x -> folder.GetMessage(x.UniqueId))    
 
 let disconnect (client : ImapClient) = client.Disconnect(true)

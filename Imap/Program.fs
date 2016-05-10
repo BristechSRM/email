@@ -16,7 +16,7 @@ let main _ =
 
     while true do 
         printfn "Starting Polling at %A" DateTime.UtcNow
-        let knownExternalIds = [||] //CommsClient.getHandlesForEmail creds.Email
+        let knownExternalIds = [||]
         ZohoClient.getNewMessages inbox knownExternalIds 
         |> Seq.map (Mapper.tryMapToEntity handles)
         |> Seq.choose id //TODO Currently ignoring emails which don't have a profile match. Can we do better?
