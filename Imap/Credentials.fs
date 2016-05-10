@@ -22,6 +22,8 @@ let getCredentials() =
         { Email = ConfigurationManager.AppSettings.Item("EmailAccount")
           Password = ConfigurationManager.AppSettings.Item("Password") }
 
-    if String.IsNullOrWhiteSpace creds.Email  || String.IsNullOrWhiteSpace creds.Password then 
+    if String.IsNullOrWhiteSpace creds.Email || String.IsNullOrWhiteSpace creds.Password then 
         failwith missingCredentialsMessage
     else creds
+
+let credentials = getCredentials()
