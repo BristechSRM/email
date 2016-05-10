@@ -1,10 +1,20 @@
 ﻿module Entities
 
 [<CLIMutable>]
-type Message = 
+type CorrespondenceItemEntity = 
     { Id : string
-      Subject : string
-      TextBody : string
-      FromEmail : string
-      ToEmail : string }
+      ExternalId : string
+      SenderId : string
+      ReceiverId : string
+      Date : string
+      Message : string
+      Type : string
+      SenderHandle : string
+      ReceiverHandle : string }
+
+[<CLIMutable>]
+type HandleEntity = 
+    { ProfileId : string 
+      Type : string
+      Identifier : string }    
 
