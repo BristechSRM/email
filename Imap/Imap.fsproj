@@ -59,7 +59,6 @@
     <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="CommsMapper.fs" />
-    <Compile Include="InMemoryRepository.fs" />
     <Compile Include="CommsClient.fs" />
     <Compile Include="HandlesClient.fs" />
     <Compile Include="ZohoClient.fs" />

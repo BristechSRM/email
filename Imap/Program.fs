@@ -8,9 +8,9 @@ let main _ =
     setupLogging()
     let client = ZohoClient.getConnectedClient()
     let inbox = ZohoClient.openInbox client
-
     let creds = Credentials.credentials
-    let interval = new TimeSpan(0,0,60)
+
+    let interval = new TimeSpan(0,0,30)
     let createCancelSource() = new CancellationTokenSource(interval)
     let mutable cancelSource = createCancelSource() 
     
@@ -28,7 +28,7 @@ let main _ =
 
         let prepedMessages = 
             newMessages
-            |> Seq.map (Mapper.tryMapToEntity handles)
+            |> Seq.map (CommsMapper.tryMapToEntity handles)
             |> Seq.choose id 
             //TODO Currently ignoring emails which don't have a profile match. Can we do better?
         
