@@ -2,6 +2,7 @@
 open System.Threading
 open Logging
 open Serilog
+open System.Configuration
 
 [<EntryPoint>]
 let main _ = 
@@ -10,7 +11,15 @@ let main _ =
     let inbox = ZohoClient.openInbox client
     let creds = Credentials.credentials
 
-    let interval = new TimeSpan(0,0,30)
+    let interval = 
+        let raw = ConfigurationManager.AppSettings.Item("PollingInterval")
+        match TimeSpan.TryParseExact(raw,"c",null) with
+        | true, span -> span
+        | false, _ -> 
+            let message = "PollingInterval config is missing or invalid. Make sure a valid TimeSpan value has been entered"
+            Log.Fatal(message)
+            failwith message
+            
     let createCancelSource() = new CancellationTokenSource(interval)
     let mutable cancelSource = createCancelSource() 
     
