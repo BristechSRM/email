@@ -55,12 +55,12 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Config.fs" />
     <Compile Include="Logging.fs" />
     <Compile Include="Credentials.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="CommsMapper.fs" />
-    <Compile Include="CommsClient.fs" />
-    <Compile Include="HandlesClient.fs" />
+    <Compile Include="SrmApiClient.fs" />
     <Compile Include="ZohoClient.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
@@ -76,6 +76,10 @@
     </Reference>
     <Reference Include="Bristech.Srm.HttpConfig">
       <HintPath>..\packages\Bristech.Srm.HttpConfig.0.1.5.0\lib\net45\Bristech.Srm.HttpConfig.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Configuration">
+      <HintPath>..\packages\FSharp.Configuration.0.5.12\lib\net40\FSharp.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
@@ -99,6 +103,10 @@
     </Reference>
     <Reference Include="Serilog.FullNetFx">
       <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpYaml">
+      <HintPath>..\packages\FSharp.Configuration.0.5.12\lib\net40\SharpYaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
