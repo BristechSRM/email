@@ -45,7 +45,7 @@ module ExternalIds =
         }
 
 module Correspondence = 
-    let postCorr client uri item = 
+    let postItem client uri item = 
         async {
             let! result = post client uri item
             Log.Information("Posted item with ExternalId {id} with result {result}", item.ExternalId, result)
@@ -57,11 +57,11 @@ module Correspondence =
             use client = new HttpClient()
             let correspondenceUri = Uri(commsUri, "Correspondence")
             if Seq.isEmpty items then
-                Log.Information("No New Correspondence to insert")
+                Log.Information("No new correspondence to insert")
             else 
-                Log.Information("New Correspondence found. Posting to: {uri}",correspondenceUri)
+                Log.Information("New correspondence found. Posting to: {uri}",correspondenceUri)
                 items
-                |> Seq.map (postCorr client correspondenceUri)
+                |> Seq.map (postItem client correspondenceUri)
                 |> Async.Parallel
                 |> Async.RunSynchronously
                 |> ignore
