@@ -17,7 +17,7 @@ let getProfileId (handles : HandleEntity []) (email : string) =
 
 //TODO for inbox we know the receiver all the time, for Sent items, we know sender all the time. Here we check the full handles every mapping. Update so that extra work is removed. 
 
-let tryMapToEntity (handles : HandleEntity [])  (message : MimeMessage ) =  
+let chooseCorrespondenceItem (handles : HandleEntity []) (message : MimeMessage) =  
     let senderHandle = message.From |> firstEmail
     let receiverHandle = message.To |> firstEmail
 

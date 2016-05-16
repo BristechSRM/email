@@ -3,6 +3,7 @@ open Serilog
 open SrmApiClient
 open System
 open System.Threading
+open CommsMapper
 
 let client = ZohoClient.getConnectedClient()
 let inbox = ZohoClient.openInbox client
@@ -15,9 +16,9 @@ let importNewMessages inbox (creds : Credentials.Credentials) =
         let! handles = Handles.getAll()
         let! knownExternalIds = ExternalIds.get creds.Email
         let! newMessages = ZohoClient.getNewMessages inbox knownExternalIds
-        let prepedMessages = newMessages |> Seq.choose (CommsMapper.tryMapToEntity handles)
-        //TODO Currently ignoring emails which don't have a profile match. Can we do better?
-        return! Correspondence.postAll prepedMessages
+        let items = newMessages |> Seq.choose (chooseCorrespondenceItem handles)
+
+        return! Correspondence.postAll items
     }
 
 [<EntryPoint>]
@@ -31,4 +32,10 @@ let main _ =
         Log.Information("Polling completed. Pausing at {now}. \n Polling will start again in {interval} seconds", DateTime.UtcNow, interval)
         client.Idle(cancelSource.Token)
         cancelSource <- createCancelSource()
+        (* 
+            Here we must switch to the idle state because without doing so, the connection is automatically closed (probably by the Zoho server)
+            The idle state keeps the connection open when we aren't actively using it. 
+
+            Idle is a blocking method, so an asynchronous way of cancelling out of idle must be used. the cancellationToken is the easiest way to do this. 
+        *)
     0
