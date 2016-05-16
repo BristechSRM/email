@@ -78,10 +78,6 @@
       <HintPath>..\packages\Bristech.Srm.HttpConfig.0.1.5.0\lib\net45\Bristech.Srm.HttpConfig.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Configuration">
-      <HintPath>..\packages\FSharp.Configuration.0.5.12\lib\net40\FSharp.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
