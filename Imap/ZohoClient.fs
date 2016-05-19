@@ -1,7 +1,6 @@
 ﻿module ZohoClient
 
 open MailKit
-open MailKit.Search
 open MailKit.Net.Imap
 open Credentials
 
@@ -23,13 +22,13 @@ let openInbox (client : ImapClient) =
     inbox.Open(FolderAccess.ReadOnly) |> ignore
     inbox
 
-let getAllMessages (folder : IMailFolder) = 
-    folder.Search(SearchQuery.All)
-    |> Seq.map (fun i-> folder.GetMessage(i))
-
-let getNewMessages (folder : IMailFolder) =
-    let summaries = folder.Fetch(0, -1, MessageSummaryItems.Envelope ||| MessageSummaryItems.UniqueId)
-    summaries
-    |> Seq.map(fun x -> folder.GetMessage(x.UniqueId))    
+let getNewMessages (folder : IMailFolder) (knownIds : string [])=
+    async {
+        let! summaries = folder.FetchAsync(0, -1, MessageSummaryItems.Envelope ||| MessageSummaryItems.UniqueId) |> Async.AwaitTask
+        return
+            summaries
+            |> Seq.filter(fun x -> not <| Array.contains x.Envelope.MessageId knownIds)
+            |> Seq.map(fun x -> folder.GetMessage(x.UniqueId))    
+    }
 
 let disconnect (client : ImapClient) = client.Disconnect(true)

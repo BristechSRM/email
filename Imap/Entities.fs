@@ -1,7 +1,7 @@
 ﻿module Entities
 
 [<CLIMutable>]
-type CorrespondenceItemEntity = 
+type CorrespondenceItemEntity =
     { Id : string
       ExternalId : string
       SenderId : string
@@ -13,8 +13,7 @@ type CorrespondenceItemEntity =
       ReceiverHandle : string }
 
 [<CLIMutable>]
-type HandleEntity = 
-    { ProfileId : string 
+type HandleEntity =
+    { ProfileId : string
       Type : string
-      Identifier : string }    
-
+      Identifier : string }

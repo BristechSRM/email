@@ -10,12 +10,14 @@ let firstEmail (addresses : InternetAddressList) = (firstAddress addresses).Addr
 let convertToISO8601 (datetime : DateTimeOffset) =
     datetime.ToString("yyyy-MM-ddTHH\:mm\:ss\Z")
 
-let getProfileId (handles : HandleEntity []) email =
+let getProfileId (handles : HandleEntity []) (email : string) =
     handles 
-    |> Seq.choose(fun x -> if x.Identifier = email then Some x.ProfileId else None)
+    |> Seq.choose(fun x -> if x.Identifier.ToUpperInvariant() = email.ToUpperInvariant() then Some x.ProfileId else None)
     |> Seq.tryHead
 
-let tryMapToEntity (handles : HandleEntity [])  (message : MimeMessage ) =  
+//TODO for inbox we know the receiver all the time, for Sent items, we know sender all the time. Here we check the full handles every mapping. Update so that extra work is removed. 
+
+let chooseCorrespondenceItem (handles : HandleEntity []) (message : MimeMessage) =  
     let senderHandle = message.From |> firstEmail
     let receiverHandle = message.To |> firstEmail
 
@@ -30,7 +32,7 @@ let tryMapToEntity (handles : HandleEntity [])  (message : MimeMessage ) =
                    SenderId = senderId
                    ReceiverId = receiverId
                    Date = convertToISO8601 message.Date
-                   Message = sprintf "%s \n %s" message.Subject message.TextBody
+                   Message = sprintf "Subject: %s \n Message: \n %s" message.Subject message.TextBody
                    Type = "Email"
                    SenderHandle = senderHandle
                    ReceiverHandle = receiverHandle }
