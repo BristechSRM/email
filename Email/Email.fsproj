@@ -7,7 +7,7 @@
     <ProjectGuid>{2210DA00-A0D3-4035-B7E6-6787AF279A5A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Imap</RootNamespace>
-    <AssemblyName>Imap</AssemblyName>
+    <AssemblyName>Email</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
